@@ -1,0 +1,9 @@
+﻿  Source.cpp
+Source.cpp(87): warning C4101: 'block': unreferenced local variable
+Source.cpp(308): warning C4305: '=': truncation from 'double' to 'float'
+  Generating code
+c:\users\ethan\documents\visual studio 2015\projects\tetrisclone\tetrisclone\source.cpp(133): warning C4715: 'collide': not all control paths return a value
+  All 143 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  tetrisClone.vcxproj -> C:\Users\Ethan\documents\visual studio 2015\Projects\tetrisClone\Release\tetrisClone.exe
+  tetrisClone.vcxproj -> C:\Users\Ethan\documents\visual studio 2015\Projects\tetrisClone\Release\tetrisClone.pdb (Full PDB)

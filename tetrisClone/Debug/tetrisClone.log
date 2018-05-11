@@ -1,0 +1,6 @@
+﻿  Source.cpp
+c:\users\ethan\documents\visual studio 2015\projects\tetrisclone\tetrisclone\source.cpp(87): warning C4101: 'block': unreferenced local variable
+c:\users\ethan\documents\visual studio 2015\projects\tetrisclone\tetrisclone\source.cpp(308): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\ethan\documents\visual studio 2015\projects\tetrisclone\tetrisclone\source.cpp(133): warning C4715: 'collide': not all control paths return a value
+  tetrisClone.vcxproj -> C:\Users\Ethan\documents\visual studio 2015\Projects\tetrisClone\Debug\tetrisClone.exe
+  tetrisClone.vcxproj -> C:\Users\Ethan\documents\visual studio 2015\Projects\tetrisClone\Debug\tetrisClone.pdb (Full PDB)
