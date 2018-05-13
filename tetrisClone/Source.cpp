@@ -11,16 +11,17 @@ int nScreenWidth = 120, nScreenHeight = 40;
 int nMapHeight = 17;
 int nMapWidth = 12;
 
-class object {
-public:
-	object() {};
+struct tetromino{
 
-	~object() {};
+	tetromino() {};
 
-	wstring sprite = L"$$@$"
+	~tetromino() {};
+
+
+	wstring sprite = L"$$$@"
 					  "$$@$"
-					  "$$@$"
-					  "$$@$";
+					  "$@$$"
+					  "@$$$";
 
 	int xPos = 54;
 	int yPos = 8;
@@ -40,14 +41,6 @@ public:
 			}
 		}
 	}
-
-};
-
-class tetromino : public object {
-public:
-	tetromino() : object() {};
-
-	~tetromino() {};
 
 	void rotate(bool cw)
 	{
@@ -83,53 +76,38 @@ public:
 
 bool collide(tetromino *T, wchar_t *buffer, char direction)
 {
+	int Xdir = 0;
+	int Ydir = 0;
+
 	switch (direction) {
 		bool block;
-	case 'R': 
-
-		// iterate through tetromino sprite and check block to the right
-		for (int x = 0; x < T->width; x++)
-		{
-			for (int y = 0; y < T->height; y++)
-			{
-				if (T->sprite[y * T->width + x] == '@' &&
-					buffer[(T->yPos + y) * nScreenWidth + (T->xPos + x + 1)] == '#')
-					return true;
-			}
-		}
-		return false;
+	case 'R':
+		Xdir = 1;
 		break;
 
 	case 'L':
-		// iterate through tetromino sprite and check block to the left
-		for (int x = 0; x < T->width; x++)
-		{
-			for (int y = 0; y < T->height; y++)
-			{
-				if (T->sprite[y * T->width + x] == '@' &&
-					buffer[(T->yPos + y) * nScreenWidth + (T->xPos + x - 1)] == '#')
-					return true;
-			}
-		}
-		return false;
+		Xdir = -1;
 		break;
 
 	case 'D':
-		// iterate through tetromino sprite and check block below
-		for (int x = 0; x < T->width; x++)
-		{
-			for (int y = 0; y < T->height; y++)
-			{
-				if (T->sprite[y * T->width + x] == '@' &&
-					buffer[(T->yPos + y + 1) * nScreenWidth + (T->xPos + x)] == '#')
-					return true;
-			}
-		}
-		return false;
+		Ydir = 1;
 		break;
 
+	default:
+		return false;
 	}
 
+	// iterate through tetromino sprite and check blocks adjasent to them
+	for (int x = 0; x < T->width; x++)
+	{
+		for (int y = 0; y < T->height; y++)
+		{
+			if (T->sprite[y * T->width + x] == '@' &&
+				buffer[(T->yPos + y + Ydir) * nScreenWidth + (T->xPos + x + Xdir)] == '#')
+				return true;
+		}
+	}
+	return false;
 }
 
 
@@ -188,7 +166,7 @@ int main()
 				" @@@"
 				"    ";
 
-	tetromino peices[7] = { I, L, O, J, S, Z, T };
+	tetromino pieces[7] = { I, L, O, J, S, Z, T };
 
 	tetromino *current = &T;
 
@@ -224,6 +202,8 @@ int main()
 
 	float fallSpeed = 1.0;
 
+	int score = 0;
+
 	bool running = true;
 
 	while (running)
@@ -253,7 +233,9 @@ int main()
 					if (map[i] == '#')
 						running = false;
 				}
-				
+
+				int lines = 0;
+
 				// check if there are any lines
 				for (int y = 1; y < 16; y++)
 				{
@@ -270,12 +252,15 @@ int main()
 						wstring insert = L"#          #";
 						map.erase(y * nMapWidth, 12);
 						map.insert(0, insert);
+						lines++;
 					}
 				}
-				
+
+				score += lines * 100;
+
 				current->xPos = 54;
 				current->yPos = 8;
-				current = &peices[rand() % 7];
+				current = &pieces[rand() % 7];
 			}
 			fallSpeed = 1.0;
 			tp1 = chrono::system_clock::now();
