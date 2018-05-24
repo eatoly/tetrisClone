@@ -11,6 +11,26 @@ int nScreenWidth = 120, nScreenHeight = 40;
 int nMapHeight = 17;
 int nMapWidth = 12;
 
+void processInput()
+{
+
+}
+
+void update()
+{
+
+}
+
+void render()
+{
+
+}
+
+void sleep()
+{
+
+}
+
 struct tetromino{
 
 	tetromino() {};
